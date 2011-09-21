@@ -2,10 +2,12 @@ package MooseX::Types::Locale::US::States;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 # VERSION
 
 use MooseX::Types -declare => [ qw( USStateName USStateCode ) ];
+use MooseX::Types::Moose qw( Str );
 
 use Locale::US;
 
@@ -26,12 +28,20 @@ coerce USStateName,
 	}
 	;
 
+coerce USStateName,
+	from Str,
+	via {
+		uc( $_ );
+	}
+	;
+
 coerce USStateCode,
 	from USStateName,
 	via {
 		return $u->{state2code}{$_};
 	}
 	;
+
 
 1;
 
