@@ -42,6 +42,13 @@ coerce USStateCode,
 	}
 	;
 
+coerce USStateCode,
+	from Str,
+	via {
+		my $i = uc( $_ );
+		return $u->{state2code}{$i};
+	}
+	;
 
 1;
 
